@@ -1,0 +1,54 @@
+use hausershappyhabitat;
+
+
+CREATE TABLE IF NOT EXISTS task (
+	taskID INT primary key NOT NULL,
+    taskMonth set('April', 'May', 'June', 'July', 'August', 'September', 'October'),
+    taskName VARCHAR(100) NOT NULL,
+    hours TIME NOT NULL
+    );
+
+
+CREATE TABLE IF NOT EXISTS tool (
+	toolid INT primary key NOT NULL,
+    toolName VARCHAR(100) NOT NULL,
+    taskID INT NOT NULL,
+    FOREIGN KEY(taskID) REFERENCES task(taskID)
+    );
+
+
+CREATE TABLE IF NOT EXISTS volunteer (
+	volunteerID INT primary key NOT NULL,
+    firstName VARCHAR(45) NOT NULL,
+    lastName VARCHAR(45) NULL,
+    email VARCHAR(45) NULL
+    );
+
+
+CREATE TABLE IF NOT EXISTS schedule (
+	scheduleID INT NOT NULL,
+    taskID INT NOT NULL,
+    volunteerID INT NOT NULL,
+    startTime TIME NOT NULL,
+    duration TIME NOT NULL,
+    workDate DATE NOT NULL,
+    FOREIGN KEY (taskId) REFERENCES task (taskID),
+    FOREIGN KEY (volunteerID) REFERENCES volunteer (volunteerID),
+    PRIMARY KEY (taskID, volunteerID, workDate))
+    ;
+    
+
+CREATE TABLE IF NOT EXISTS member (
+	memberID INT primary key NOT NULL,
+    monthlyFee DECIMAL(5,2) NOT NULL,
+    firstName VARCHAR(45) NOT NULL,
+    lastName VARCHAR(45) NOT NULL,
+    city VARCHAR(45) NOT NULL,
+    zipcode INT NOT NULL,
+    street VARCHAR(45) NOT NULL,
+    email VARCHAR(45) NOT NULL,
+    phone BIGINT(15) NULL,
+    volunteerId INT NOT NULL,
+    FOREIGN KEY (volunteerId) REFERENCES volunteer(volunteerID)
+    );
+    
